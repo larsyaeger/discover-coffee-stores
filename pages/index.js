@@ -29,12 +29,16 @@ export default function Home() {
           />
         </div>
         <div className={styles.cardLayout}>
-          <Card
-            name="darkhorse coffee"
-            imgUrl="/static/hero-image.png"
-            href="/coffee-store/darkhorse-coffee"
-            className={styles.card}
-          />
+          {coffeeStores.map((coffeeStore) => {
+            return (
+              <Card
+                name={coffeeStore.name}
+                imgUrl={coffeeStore.imgUrl}
+                href={`/coffee-store/${coffeeStore.id}`}
+                className={styles.card}
+              />
+            );
+          })}
         </div>
       </main>
     </div>
