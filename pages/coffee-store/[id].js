@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import coffeeStoresData from "../../data/coffee-stores.json";
+import Head from "next/head";
 
 export function getStaticProps({ params }) {
   console.log("params here", params);
@@ -14,8 +15,15 @@ export function getStaticProps({ params }) {
 }
 
 export function getStaticPaths() {
+  const paths = coffeeStoresData.map((coffeeStore) => {
+    return {
+      params: {
+        id: coffeeStore.id.toString(),
+      },
+    };
+  });
   return {
-    paths: [{ params: { id: "0" } }, { params: { id: "1" } }],
+    paths,
     fallback: true,
   };
 }
@@ -24,16 +32,21 @@ const CoffeeStore = (props) => {
   console.log("props:", props);
   const router = useRouter();
   console.log("router", router.query);
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+  const { address, name, neighbourhood } = props.coffeeStore;
   return (
     <div>
-      Coffee Store Page {router.query.id}
+      <Head>
+        <title>{name}</title>
+      </Head>
       <Link href="/">back to home</Link>
-      <Link href="/coffee-store/one">go to page dynamic</Link>
-      <p>{props.coffeeStore.address}</p>
-      <p>{props.coffeeStore.name}</p>
+      <br />
+      <p>{address}</p>
+      <p>{name}</p>
+      <p>{neighbourhood}</p>
     </div>
   );
 };
