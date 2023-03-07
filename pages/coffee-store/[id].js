@@ -15,12 +15,8 @@ export function getStaticProps({ params }) {
 
 export function getStaticPaths() {
   return {
-    paths: [
-      { params: { id: "0" } },
-      { params: { id: "1" } },
-      { params: { id: "300" } },
-    ],
-    fallback: false,
+    paths: [{ params: { id: "0" } }, { params: { id: "1" } }],
+    fallback: true,
   };
 }
 
@@ -28,6 +24,9 @@ const CoffeeStore = (props) => {
   console.log("props:", props);
   const router = useRouter();
   console.log("router", router.query);
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       Coffee Store Page {router.query.id}
