@@ -15,6 +15,21 @@ export async function getStaticProps(context) {
 
 export default function Home(props) {
   console.log("props here", props);
+  const options = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: "fsq3Hjdf0eulGWznC2LR9/pKMfUM/Xd2KRysKcSdpG6opUo=",
+    },
+  };
+
+  fetch(
+    "https://api.foursquare.com/v3/places/search?query=coffee&ll=43.653833032607096%2C-79.37896808855945&limit=6",
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
   const handleOnBannerBtnClick = () => {
     console.log("hangleOnBannerBtnClick");
   };
