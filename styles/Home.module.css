@@ -19,7 +19,6 @@
   z-index: 1;
 }
 .cardLayout {
-  margin-top: 17vh;
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   column-gap: 1.5rem;
@@ -29,7 +28,9 @@
 .card {
   justify-content: center;
 }
-
+.sectionWrapper {
+  margin-top: 5rem;
+}
 .heading2 {
   font-size: 2.25rem;
   line-height: 2.5rem;
