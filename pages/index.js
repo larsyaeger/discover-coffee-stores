@@ -5,6 +5,7 @@ import Card from "@/components/card";
 import Image from "next/image";
 import { fetchCoffeeStores } from "@/lib/coffee-stores";
 import useTrackLocation from "@/hooks/use-track-location";
+import { useEffect } from "react";
 
 export async function getStaticProps(context) {
   const coffeeStores = await fetchCoffeeStores();
@@ -25,6 +26,20 @@ export default function Home(props) {
     handleTrackLocation();
     console.log("hangleOnBannerBtnClick");
   };
+
+  useEffect(() => {
+    async function setCoffeeStoresByLocation() {
+      if (latLong) {
+        try {
+          const fetchedCoffeeStores = await fetchCoffeeStores(latLong, 30);
+          console.log({ fetchedCoffeeStores });
+        } catch (error) {
+          console.log({ error });
+        }
+      }
+    }
+    setCoffeeStoresByLocation();
+  }, [latLong]);
   return (
     <div>
       <Head>
