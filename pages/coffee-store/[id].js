@@ -7,11 +7,12 @@ import cls from "classnames";
 import { fetchCoffeeStores } from "@/lib/coffee-stores";
 export async function getStaticProps({ params }) {
   const coffeeStores = await fetchCoffeeStores();
+  const findCoffeeStores = coffeeStores.find((coffeeStore) => {
+    return coffeeStore.id.toString() === params.id; //dynamic coffee store id
+  });
   return {
     props: {
-      coffeeStore: coffeeStores.find((coffeeStore) => {
-        return coffeeStore.id.toString() === params.id; //dynamic coffee store id
-      }),
+      coffeeStore: findCoffeeStores ? findCoffeeStores : {},
     },
   };
 }
