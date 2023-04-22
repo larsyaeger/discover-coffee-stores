@@ -8,6 +8,9 @@ import useTrackLocation from "@/hooks/use-track-location";
 import { useEffect, useState, useContext } from "react";
 import { ACTION_TYPES, StoreContext } from "@/store/store-context";
 
+//getStaticProps is fetched at build time
+//API routes are not available at build time
+//Try to not call API inside of getStaticProps
 export async function getStaticProps(context) {
   const coffeeStores = await fetchCoffeeStores();
   return {
